@@ -1,17 +1,32 @@
 package telran.ThreadsRaceGame;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 public class Race {
-	private int winner;
-public Race() {
-	this.winner=-1;
-}
-public int getWinner() {
-		return winner;
+	private int distance;
+	private int minSleep;
+	private int maxSleep;
+	private AtomicInteger winnerNum = new AtomicInteger(-1);
+	public Race(int distance, int minSleep, int maxSleep) {
+		this.distance = distance;
+		this.minSleep = minSleep;
+		this.maxSleep = maxSleep;
 	}
-public int setWinner(int winner) {
-	return this.winner=winner;
-}
-}
+	public int getWinner() {
+		return winnerNum.get();
+	}
+	public void setWinner(int winner) {
+		this.winnerNum.compareAndSet(-1, winner);
+		
+	}
+	public int getDistance() {
+		return distance;
+	}
+	public int getMinSleep() {
+		return minSleep;
+	}
+	public int getMaxSleep() {
+		return maxSleep;
+	}
 	
-
-
+}
